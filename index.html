@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Eğlenceli Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      color: #333;
+    }
+    .question {
+      margin: 20px 0;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .options button {
+      display: block;
+      margin: 10px auto;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background-color: #4CAF50;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .options button:hover {
+      background-color: #45a049;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #222;
+    }
+  </style>
+</head>
+<body>
+  <h1>ÜNİVERSİTELİ TAYFA QUİZ 🎉</h1>
+  <div id="quiz">
+    <div class="question" id="question"></div>
+    <div class="options" id="options"></div>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "Kim en çok eşek siker?",
+        options: ["bey", "paki", "fallik", "APO"],
+        answer: "APO"
+      },
+      {
+        question: "Kim para taşımayı sevmez?",
+        options: ["bey", "paki", "FALLİK", "APO"],
+        answer: "fallik"
+      },
+      {
+        question: "Kim tek hareketi ile kızları yanına çeker?",
+        options: ["BEY","paki","fallik","apo"],
+        answer: "BEY"
+      },
+      {
+        question: "Kİm en çok amatör sever?",
+        options: ["PAKİ","fallik","bey","apo"],
+        answer: "PAKİ"
+      },
+    ];
+
+    let currentQuestion = 0;
+
+    function loadQuestion() {
+      document.getElementById("result").innerHTML = "";
+      const q = questions[currentQuestion];
+      document.getElementById("question").innerText = q.question;
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+      q.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.innerText = option;
+        btn.onclick = () => checkAnswer(option);
+        optionsDiv.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(selected) {
+      const q = questions[currentQuestion];
+      if (selected === q.answer) {
+        document.getElementById("result").innerText = "✅ Doğru!";
+      } else {
+        document.getElementById("result").innerText = "❌ Yanlış! Doğru cevap: " + q.answer;
+      }
+      currentQuestion++;
+      if (currentQuestion < questions.length) {
+        setTimeout(loadQuestion, 1500);
+      } else {
+        setTimeout(() => {
+          document.getElementById("quiz").innerHTML = "<h2>Quiz bitti 🎉</h2>";
+        }, 1500);
+      }
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>
